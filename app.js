@@ -1,6 +1,7 @@
 var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
+var weatherAPI = require('./app/weather')
 
 app.use(bodyParser.json())
 
@@ -17,8 +18,19 @@ app.post('/',function(req,res){
 })
 
 app.get('/weather',function(req,res){
-	console.log('weather boiis')
-	res.json({boii: 'weather boiis boiis'})
+	let weather = new weatherAPI.Weather('19122')
+	
+  weather.getWeather()
+  .then(function(data){
+      return weather.setResponse(data)
+    })
+  .then(function(data){
+    res.json({response: data})
+
+  })
+  .catch(function(err){
+    res.end({error: 'There was an error getting the weather'})
+  })
 })
 
-app.listen(80,()=> console.log("Server Online"))
+app.listen(3000,()=> console.log("Server Online"))
