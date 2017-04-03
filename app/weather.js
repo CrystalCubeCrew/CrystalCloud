@@ -1,3 +1,6 @@
+let request = require('superagent')
+let weatherConfig = require('../config/weatherConfig')
+
 Object.prototype.formString = function () {
   let obj = this
   let string = ''
@@ -7,8 +10,6 @@ Object.prototype.formString = function () {
   })
   return string;
 } 
-
-var request = require('superagent')
 
 class Weather {
 
@@ -32,9 +33,9 @@ module.exports.Weather = Weather
 let getWeather = function (obj) {
   return new Promise (function (resolve, reject) {
     request
-    .get('http://api.openweathermap.org/data/2.5/weather')
-    .query({appid: '978b69b401d80f55d0d84abd9bbbe6f6'})
-    .query({units: 'imperial'})
+    .get(weatherConfig.url)
+    .query({appid: weatherConfig.appId})
+    .query({units: weatherConfig.units})
     .query({zip: obj._location+',us'})
     .end(function(err, res){
      (err || !res.ok)
@@ -45,7 +46,6 @@ let getWeather = function (obj) {
 }
 
 let setResponse = function(data) {
-
   return Promise.resolve(
     function(){
       let obj = JSON.parse(data.text)
@@ -57,6 +57,6 @@ let setResponse = function(data) {
       }
 
       return out.formString()
-  }()
+    }()
   )
 }
