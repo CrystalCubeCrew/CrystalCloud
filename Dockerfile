@@ -4,5 +4,5 @@ WORKDIR /app
 COPY package.json /app
 RUN npm install
 COPY . /app
-EXPOSE 80
-CMD ["pm2-docker", "app.js"]
+EXPOSE 3000
+CMD ["node", "app.js"]
