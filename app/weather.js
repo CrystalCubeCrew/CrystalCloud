@@ -1,8 +1,7 @@
 let request = require('superagent')
 let weatherConfig = require('../config/weatherConfig')
 
-Object.prototype.formString = function () {
-  let obj = this
+let formString = function (obj) {
   let string = ''
 
   Object.keys(obj).map(function(key){
@@ -56,7 +55,7 @@ let setResponse = function(data) {
         weather: obj.weather[0].description
       }
 
-      return out.formString()
+      return formStrings(out)
     }()
   )
 }

@@ -11,6 +11,8 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "firebase": "^3.7.4",
+    "firebase-admin": "^4.1.4",
     "superagent": "^3.5.2",
     "twilio": "^2.11.1"
   }
