@@ -1,5 +1,6 @@
 let weatherAPI = require('./weather')
 let twilioAPI = require('./twilio')
+let NewsAPI = require('./news')
 
 module.exports = function (app) {
 
@@ -20,7 +21,8 @@ module.exports = function (app) {
       res.json({response: data})
     })
     .catch(function(err){
-      res.end({error: 'There was an error getting the weather'})
+      throw err
+      res.send({error: 'There was an error getting the weather'})
     })
   })
 
@@ -40,8 +42,23 @@ module.exports = function (app) {
     .catch(function(){
       res.send('fail')
     })
-
   })
 
+app.get('/news',function(req,res){
+    let nws = new NewsAPI('Sports')
+
+    nws.getnews()
+    .then(function(data){
+      return nws.setResponse(data)
+    })
+
+    .then(function(data){
+      res.send(data)
+    })
+    .catch(function(err){
+      console.log(err)
+      res.send('fail')
+    })
+})
 
 }

@@ -1,7 +1,7 @@
 let request = require('superagent')
 let weatherConfig = require('../config/weatherConfig')
 
-let formString = function (obj) {
+let formStrings = function (obj) {
   let string = ''
 
   Object.keys(obj).map(function(key){
