@@ -2,7 +2,7 @@ let weatherAPI = require('./weather')
 let twilioAPI = require('./twilio')
 let NewsAPI = require('./news')
 
-module.exports = function (app) {
+module.exports = function (app,faceUpload) {
 
   app.post('/',function(req,res){
     console.log(req.body)
@@ -53,12 +53,16 @@ app.get('/news',function(req,res){
     })
 
     .then(function(data){
-      res.send(data)
+      res.json({response: data})
     })
     .catch(function(err){
       console.log(err)
       res.send('fail')
     })
+})
+
+app.post('/saveFile',faceUpload.single('file'),function(req,res){
+  res.end() 
 })
 
 }

@@ -1,15 +1,19 @@
-  var admin = require("firebase-admin");
+var admin = require("firebase-admin");
 
-  var serviceAccount = require("./crystalcube11-174d6-firebase-adminsdk-vq3p3-5f1d170884.json")
+var serviceAccount = require("./chet_db_key.json")
 
 
-  admin.initializeApp({
+function configFb () {
+
+  return admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://crystalcube11-174d6.firebaseio.com"
+    //databaseURL: "https://crystalcube11-174d6.firebaseio.com"
+    databaseURL: "https://crystal-99551.firebaseio.com/"
   })
 
-  let lit = admin.database().ref('/')
+}
 
-  lit.once('value',function(poop){
-    console.log(poop.val())
-  })
+
+module.exports = configFb()
+
+
