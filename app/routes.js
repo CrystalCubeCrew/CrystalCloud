@@ -44,25 +44,31 @@ module.exports = function (app,faceUpload) {
     })
   })
 
-app.get('/news',function(req,res){
-    let nws = new NewsAPI('Sports')
+  app.get('/news',function(req,res){
+      let nws = new NewsAPI('Sports')
 
-    nws.getnews()
-    .then(function(data){
-      return nws.setResponse(data)
-    })
+      nws.getnews()
+      .then(function(data){
+        return nws.setResponse(data)
+      })
 
-    .then(function(data){
-      res.json({response: data})
-    })
-    .catch(function(err){
-      console.log(err)
-      res.send('fail')
-    })
-})
+      .then(function(data){
+        res.json({response: data})
+      })
+      .catch(function(err){
+        console.log(err)
+        res.send('fail')
+      })
+  })
 
-app.post('/saveFile',faceUpload.single('file'),function(req,res){
-  res.end() 
-})
+  app.post('/saveFile',faceUpload.single('file'),function (req,res) {
+      res.end() 
+  })
 
-}
+  app.post('/post', function (req,res) {
+    console.log(req.body)
+    res.end()
+
+  })
+
+  }
