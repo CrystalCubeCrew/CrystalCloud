@@ -76,7 +76,7 @@ module.exports = function (app,faceUpload) {
     var filePath = 'img/faces/'+req.body.fileName
 
     var holder = {
-      machineId: 'placeHolder-1',
+      machineId: 'placeholder-1',
       firstName: 'John',
       lastName: 'Hoe',
       filePath: filePath
