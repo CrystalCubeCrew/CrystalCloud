@@ -78,7 +78,7 @@ let createPerson = function (obj) {
 
 let addToDatabase = function (obj) {
   let updates = {}
-  updates['/machines/'+obj._machineId+'/'+obj._userId] = obj._userData
+  updates['/crystalCubes/'+obj._machineId+'/user/'+obj._userId] = obj._userData
   fb.database().ref().update(updates)
 }
 

@@ -44,7 +44,7 @@ let findUser = function (obj) {
 }
 
 let getUserFromDatabase = function (obj,userId) {
-  let userRef = fb.database().ref('/machines/'+obj._machineId+'/'+userId) 
+  let userRef = fb.database().ref('/crystalCubes/'+obj._machineId+'/user/'+userId) 
   return new Promise(function (resolve,reject) {
     userRef.on('value',function (snapshot) {
       resolve(snapshot.val())

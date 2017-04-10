@@ -130,8 +130,7 @@ module.exports = function (app,faceUpload) {
           return getUser.getUserFromDatabase(userId)
         })
         .then(function (data) {
-          console.log(data)
-          res.end() 
+          res.end({response: data}) 
         })
         .catch(function(err){
           console.log(err)
