@@ -1,0 +1,52 @@
+let fb = require('../config/firebaseConfig')
+let client = require('../config/faceConfig')
+
+class GetUser {
+
+  constructor ({machineId, filePath}) {
+    this._machineId = machineId
+    this._userFaceImg = filePath
+  }
+
+  findUser () {
+    findUser(this)
+  }
+
+  getUserFromDatabase (id) {
+    getUserFromDatabase(this, id)
+  }
+}
+
+module.exports = GetUser
+
+let findUser = function (obj) {
+  return new Promise(function (resolve, reject) {
+    client.face.detect({
+      path: obj._userFaceImg,
+      returnFaceId: true
+    })
+    .then(function(userData) {
+      if(userData.length > 0){
+        var faces = [userData[0].faceId];
+        return client.face.identify(faces, obj._machineId, 1, 0.4)
+      }
+      else
+        reject(new Error('No user exist'))
+    })
+    .then(function (userData) {
+       resolve(userData[0].candidates[0].personId)
+    })
+    .catch(function (err) {
+      reject(new Error(err))
+    })
+  })
+}
+
+let getUserFromDatabase = function (obj,userId) {
+  let userRef = fb.database('/machines/'+obj._machineId+'/'+userId).ref() 
+  return new Promise(function (resolve,reject) {
+    userRef.on('value',function (snapshot) {
+      resolve(snapshot.val())
+    })
+  }) 
+}

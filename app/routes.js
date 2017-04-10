@@ -2,6 +2,7 @@ let weatherAPI = require('./weather')
 let twilioAPI = require('./twilio')
 let NewsAPI = require('./news')
 let CreateUser = require('./CreateUser')
+let GetUser = require('./GetUser')
 let fs = require('fs')
 
 function decodeBase64Image(dataString) {
@@ -72,13 +73,13 @@ module.exports = function (app,faceUpload) {
   })
 
   app.post('/createUser', function(req,res){
-    var imageBuffer = decodeBase64Image(req.body.file)
-    var filePath = 'img/faces/'+req.body.fileName
+    let imageBuffer = decodeBase64Image(req.body.file)
+    let filePath = 'img/faces/'+req.body.fileName
 
-    var holder = {
-      machineId: 'placeholder-1',
-      firstName: 'John',
-      lastName: 'Hoe',
+    let holder = {
+      machineId: req.body.machineId,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       filePath: filePath
     }
 
@@ -108,28 +109,35 @@ module.exports = function (app,faceUpload) {
   })
 
 
-  app.post('/saveFile',function (req,res) { 
-    var imageBuffer = decodeBase64Image(req.body.file);
-    fs.writeFile('test.png', imageBuffer.data, function(err) {
+  app.post('/findUser',function (req,res) { 
+    let imageBuffer = decodeBase64Image(req.body.file);
+    let filePath = 'img/faces/'+req.body.fileName
+
+    let holder = {
+      machineId: req.body.machineId,
+      filePath: filePath
+    }
+
+    fs.writeFile(filePath, imageBuffer.data, function(err) {
       if(err){
         console.log(err)
       }
       else{
-        console.log('done son')
+        let getUser = new GetUser(holder)
+
+        getUser.findUser()
+        .then(function(userId){
+          return getUserFromDatabase(userId)
+        })
+        .then(function (data) {
+          console.log(data)
+          res.end() 
+        })
+        .catch(function(err){
+          console.log(err)
+          res.end() 
+        })
       }
-      res.end() 
-    });
+    })
   })
-
-
-  app.post('/post', function (req,res) {
-    console.log(req.body)
-    res.end()
-
-  })
-
-  app.post('/create/user',function(req,res){
-
-  })
-
-  }
+}

@@ -18,5 +18,5 @@ let faceUpload = multer({ storage: faceContainer})
 
 let routes = require('./app/routes')(app, faceUpload)
 
-//app.listen(3000,()=> console.log("Server Online"))
-app.listen(80,()=> console.log("Server Online"))
+app.listen(3000,()=> console.log("Server Online"))
+//app.listen(80,()=> console.log("Server Online"))
