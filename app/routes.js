@@ -127,7 +127,7 @@ module.exports = function (app,faceUpload) {
 
         getUser.findUser()
         .then(function(userId){
-          return getUserFromDatabase(userId)
+          return getUser.getUserFromDatabase(userId)
         })
         .then(function (data) {
           console.log(data)
