@@ -1,6 +1,25 @@
 let weatherAPI = require('./weather')
 let twilioAPI = require('./twilio')
 let NewsAPI = require('./news')
+let fb = require('./firebase')
+let fs = require('fs')
+
+let newUser = new fb.NewUser({machineId: '123', firstName: 'first', lastName: 'last'})
+newUser.printUser()
+
+function decodeBase64Image(dataString) {
+  var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+    response = {};
+
+  if (matches.length !== 3) {
+    return new Error('Invalid input string');
+  }
+
+  response.type = matches[1];
+  response.data = new Buffer(matches[2], 'base64');
+
+  return response;
+}
 
 module.exports = function (app,faceUpload) {
 
@@ -61,13 +80,27 @@ module.exports = function (app,faceUpload) {
       })
   })
 
-  app.post('/saveFile',faceUpload.single('file'),function (req,res) {
-      res.end() 
+  app.post('/saveFile',function (req,res) {
+      let data = 'data:image/png;base64,' + req.body.file
+      var imageBuffer = decodeBase64Image(data);
+      fs.writeFile('test.jpg', imageBuffer.data, function(err) {
+        if(err){
+          console.log(err)
+        }
+        else{
+          console.log('done son')
+        }
+        res.end() 
+      });
   })
 
   app.post('/post', function (req,res) {
     console.log(req.body)
     res.end()
+
+  })
+
+  app.post('/create/user',function(req,res){
 
   })
 
