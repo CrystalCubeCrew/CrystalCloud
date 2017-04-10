@@ -1,4 +1,5 @@
-// let fb = require('../config/firebaseConfig')
+let fb = require('../config/firebaseConfig')
+let client = require('../config/faceConfig')
 // let userRef = fb.database().ref() 
 // let data = userRef.child('machine').push().key
 // console.log(data)
