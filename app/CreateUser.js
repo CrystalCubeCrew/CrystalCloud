@@ -61,14 +61,14 @@ let createPerson = function (obj) {
     client.face.person.create(obj._machineId, name)
     .then(function(personInfo){
       obj._userId =  personInfo.personId
-      
-    //   return Promise.all([
-    //     client.face.person.addFace(obj._machineId, personInfo.personId,{ path: obj._userFaceImg}), 
-    //     client.face.personGroup.trainingStart(obj._machineId)
-    //   ])
-    // })
-    // .then(function(){
-    //   resolve(obj)
+        
+      return Promise.all([
+        client.face.person.addFace(obj._machineId, personInfo.personId,{ path: obj._userFaceImg}), 
+        client.face.personGroup.trainingStart(obj._machineId)
+      ])
+    })
+    .then(function(){
+      resolve(obj)
     })
     .catch(function(err){
       console.log(err)
