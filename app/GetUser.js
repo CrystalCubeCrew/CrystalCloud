@@ -9,11 +9,11 @@ class GetUser {
   }
 
   findUser () {
-    findUser(this)
+    return findUser(this)
   }
 
   getUserFromDatabase (id) {
-    getUserFromDatabase(this, id)
+    return getUserFromDatabase(this, id)
   }
 }
 
