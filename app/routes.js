@@ -1,11 +1,8 @@
 let weatherAPI = require('./weather')
 let twilioAPI = require('./twilio')
 let NewsAPI = require('./news')
-let fb = require('./firebase')
+let CreateUser = require('./CreateUser')
 let fs = require('fs')
-
-let newUser = new fb.NewUser({machineId: '123', firstName: 'first', lastName: 'last'})
-newUser.printUser()
 
 function decodeBase64Image(dataString) {
   let response = {}
@@ -55,7 +52,7 @@ module.exports = function (app,faceUpload) {
     .catch(function(){
       res.send('fail')
     })
-  })
+  }) 
 
   app.get('/news',function(req,res){
       let nws = new NewsAPI('Sports')
@@ -74,18 +71,55 @@ module.exports = function (app,faceUpload) {
       })
   })
 
-  app.post('/saveFile',function (req,res) { 
-      var imageBuffer = decodeBase64Image(req.body.file);
-      fs.writeFile('test.png', imageBuffer.data, function(err) {
-        if(err){
+  app.post('/createUser', function(req,res){
+    var imageBuffer = decodeBase64Image(req.body.file)
+    var filePath = '/img/faces/'+req.body.fileName
+
+    var holder = {
+      machineId: 'placeHolder-1',
+      firstName: 'John',
+      lastName: 'Hoe',
+      filePath: filePath
+    }
+
+    let newUser = new CreateUser (holder)
+
+    fs.writeFile(fileName, imageBuffer.data, function(err) {
+      if(err)
+        console.log(err)
+        res.end()
+      else{
+
+        newUser.createPerson()
+        .then(function (obj) {
+          return newUser.addtoDatabase(obj)
+        })
+        .then(function () {
+          console.log('success')
+          res.end()
+        })
+        .catch(function (err) {
           console.log(err)
-        }
-        else{
-          console.log('done son')
-        }
-        res.end() 
-      });
+          res.end()
+        })
+      }
+    })
   })
+
+
+  app.post('/saveFile',function (req,res) { 
+    var imageBuffer = decodeBase64Image(req.body.file);
+    fs.writeFile('test.png', imageBuffer.data, function(err) {
+      if(err){
+        console.log(err)
+      }
+      else{
+        console.log('done son')
+      }
+      res.end() 
+    });
+  })
+
 
   app.post('/post', function (req,res) {
     console.log(req.body)
