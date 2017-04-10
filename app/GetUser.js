@@ -38,6 +38,7 @@ let findUser = function (obj) {
        resolve(userData[0].candidates[0].personId)
     })
     .catch(function (err) {
+      console.log(err)
       reject(new Error(err))
     })
   })
