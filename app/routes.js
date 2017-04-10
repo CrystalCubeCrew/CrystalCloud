@@ -73,7 +73,7 @@ module.exports = function (app,faceUpload) {
 
   app.post('/createUser', function(req,res){
     var imageBuffer = decodeBase64Image(req.body.file)
-    var filePath = '/img/faces/'+req.body.fileName
+    var filePath = 'img/faces/'+req.body.fileName
 
     var holder = {
       machineId: 'placeHolder-1',
