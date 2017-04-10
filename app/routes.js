@@ -135,7 +135,7 @@ module.exports = function (app,faceUpload) {
         })
         .catch(function(err){
           console.log(err)
-          res.end() 
+          res.end({error: 'Failed to get user'}) 
         })
       }
     })
