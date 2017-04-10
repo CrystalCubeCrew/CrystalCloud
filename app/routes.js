@@ -8,21 +8,9 @@ let newUser = new fb.NewUser({machineId: '123', firstName: 'first', lastName: 'l
 newUser.printUser()
 
 function decodeBase64Image(dataString) {
-<<<<<<< HEAD
+  let response = {}
   response.type = 'image/png';
   response.data = new Buffer(dataString, 'base64');
-=======
-	console.log(dataString)
-  var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
-    response = {};
-   console.log(matches)
-  if (matches.length !== 3) {
-    return new Error('Invalid input string');
-  }
-
-  response.type = matches[1];
-  response.data = new Buffer(matches[2], 'base64');
->>>>>>> 8dad5d9c896f892b2844458a7d1fa767475cbb15
 
   return response;
 }
