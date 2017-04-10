@@ -73,7 +73,7 @@ module.exports = function (app,faceUpload) {
 
   app.post('/createUser', function(req,res){
     var imageBuffer = decodeBase64Image(req.body.file)
-    var filePath = '/img/faces/newFace.png'
+    var filePath = '/img/faces/'+req.body.fileName
 
     var holder = {
       machineId: 'placeHolder-1',
@@ -84,7 +84,7 @@ module.exports = function (app,faceUpload) {
 
     let newUser = new CreateUser (holder)
 
-    fs.writeFile(fileName, imageBuffer.data, function(err) {
+    fs.writeFile(filePath, imageBuffer.data, function(err) {
       if(err){
         console.log(err)
         res.end()
