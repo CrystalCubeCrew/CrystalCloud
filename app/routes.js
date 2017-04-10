@@ -131,7 +131,7 @@ module.exports = function (app,faceUpload) {
         })
         .then(function (data) {
           console.log(data)
-          res.send({response: data}) 
+          res.send({firstName: data.profile.firstName, lastName: data.profile.lastName}) 
         })
         .catch(function(err){
           console.log(err)
