@@ -38,14 +38,13 @@ let findUser = function (obj) {
        resolve(userData[0].candidates[0].personId)
     })
     .catch(function (err) {
-      console.log(err)
       reject(new Error(err))
     })
   })
 }
 
 let getUserFromDatabase = function (obj,userId) {
-  let userRef = fb.database('/machines/'+obj._machineId+'/'+userId).ref() 
+  let userRef = fb.database().ref('/machines/'+obj._machineId+'/'+userId) 
   return new Promise(function (resolve,reject) {
     userRef.on('value',function (snapshot) {
       resolve(snapshot.val())
