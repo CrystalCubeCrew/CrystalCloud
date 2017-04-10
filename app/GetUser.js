@@ -26,15 +26,15 @@ let findUser = function (obj) {
       returnFaceId: true
     })
     .then(function(userData) {
-      if(userData.length > 0){
-        var faces = [userData[0].faceId];
-        return client.face.identify(faces, obj._machineId, 1, 0.4)
-      }
-      else
-        reject(new Error('No user exist'))
-    })
-    .then(function (userData) {
-       resolve(userData[0].candidates[0].personId)
+    //   if(userData.length > 0){
+    //     var faces = [userData[0].faceId];
+    //     return client.face.identify(faces, obj._machineId, 1, 0.4)
+    //   }
+    //   else
+    //     reject(new Error('No user exist'))
+    // })
+    // .then(function (userData) {
+    //    resolve(userData[0].candidates[0].personId)
     })
     .catch(function (err) {
       reject(new Error(err))
