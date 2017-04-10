@@ -85,9 +85,10 @@ module.exports = function (app,faceUpload) {
     let newUser = new CreateUser (holder)
 
     fs.writeFile(fileName, imageBuffer.data, function(err) {
-      if(err)
+      if(err){
         console.log(err)
         res.end()
+      }
       else{
 
         newUser.createPerson()
