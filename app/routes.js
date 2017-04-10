@@ -93,7 +93,7 @@ module.exports = function (app,faceUpload) {
 
         newUser.createPerson()
         .then(function (obj) {
-          return newUser.addtoDatabase(obj)
+          return newUser.addToDatabase(obj)
         })
         .then(function () {
           console.log('success')
