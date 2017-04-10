@@ -55,7 +55,7 @@ class CreateUser {
 module.exports = CreateUser
 
 let createPerson = function (obj) {
-  let name = obj._userData.profile.firstName +' '+ obj._userData.profile.lastName 
+  let name = obj._userData.profile.firstName
 
   return new Promise (function (resolve, reject) {
     client.face.person.create(obj._machineId, name)
