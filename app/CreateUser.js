@@ -71,6 +71,7 @@ let createPerson = function (obj) {
     //   resolve(obj)
     })
     .catch(function(err){
+      console.log(err)
       reject(new Error(err))
     })
   })
