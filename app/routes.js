@@ -53,18 +53,19 @@ module.exports = function (app) {
     action.preFormAction()
     .then(function(data){
       console.log(data)
-      res.send(data)
+      res.json(data)
     })
     .catch(function(err){
       console.log(err)
-      res.send({error: 'Failed to add user'})
+      res.json({error: 'Failed to add user'})
     })
   })
 
 
   app.post('/crystalRequest', function(req,res){
+    console.log('got request')
     console.log(req.body)
-    res.end()
+    res.json({response: 'poop'})
   })
 
 }
