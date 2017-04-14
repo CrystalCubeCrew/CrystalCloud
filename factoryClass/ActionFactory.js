@@ -5,12 +5,11 @@ let CreateUser = require('../app/classes/CreateUser')
 let GetUser = require('../app/classes/GetUser')
 
 class Action {
-
   constructor (intent, data) {
-    if(intent === 'News')
+    if(intent === 'news intent')
       return new News(data)
 
-    else if(intent === 'Weather')
+    else if(intent === 'weather intent')
       return new Weather(data)
 
     else if(intent === 'Create User')
@@ -22,12 +21,9 @@ class Action {
     else if(intent === 'Music')
       return new Music(data)   
   }
-
-  performAction(){
-    return this.preformAction()
-  }
-
 }
+
+module.exports = Action
 
 
 
