@@ -8,9 +8,10 @@ class Weather {
     this._location = location
   }
 
-  preformAction(){
+  performAction(){
+    let obj = this
     return new Promise(function (resolve,reject) {
-      getWeather(this)
+      getWeather(obj)
       .then(function(data){
         return setResponse(data)
       })
@@ -28,12 +29,13 @@ class Weather {
 module.exports = Weather
 
 let getWeather = function (obj) {
+  //console.log(obj)
   return new Promise (function (resolve, reject) {
     request
     .get(weatherConfig.url)
     .query({appid: weatherConfig.appId})
     .query({units: weatherConfig.units})
-    .query({zip: obj._location+',us'})
+    .query({zip: '19122,us'})
     .end(function(err, res){
      (err || !res.ok)
       ? reject(new Error(err))
@@ -43,6 +45,7 @@ let getWeather = function (obj) {
 }
 
 let setResponse = function(data) {
+  
   return Promise.resolve(
     function(){
       let obj = JSON.parse(data.text)

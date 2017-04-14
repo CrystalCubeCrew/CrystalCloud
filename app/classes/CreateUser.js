@@ -22,7 +22,7 @@ class CreateUser {
 
   }
 
-  performAction () {
+  performAction() {
     return new Promise(function (resolve, reject) {
       writeFile(this)
       .then(function () {
