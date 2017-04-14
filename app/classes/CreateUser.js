@@ -1,30 +1,14 @@
-let fb = require('../config/firebaseConfig')
-let client = require('../config/faceConfig')
-// let userRef = fb.database().ref() 
-// let data = userRef.child('machine').push().key
-// console.log(data)
-
-// let holder = {
-//   data: 'poop'
-// }
-
-// let updates = {}
-// updates['/machine/-KhFWD_vKVdF9mqriIIS/activity/'+ data] = holder
-
-
-// fb.database().ref().update(updates)
-
-// userRef.on('value',function (snapshot) {
-//   console.log(snapshot.val())
-// })
-
+let fb = require('../../config/firebaseConfig')
+let client = require('../../config/faceConfig')
+let writeFile = require('../singleFunction/writeFile')
 
 class CreateUser {
 
-  constructor({machineId, firstName, lastName, filePath} = {}){
+  constructor({machineId, firstName, lastName, filePath, file} = {}){
     this._machineId = machineId
     this._userId = null
-    this._userFaceImg = filePath
+    this._filePath = filePath
+    this._file = file
 
     this._userData = {
       profile : {
@@ -35,21 +19,27 @@ class CreateUser {
         location : 'Philadelphia'
       }
     }
+
   }
 
-  set userId(id) {
-    this._userId = id
+  performAction () {
+    return new Promise(function (resolve, reject) {
+      writeFile(this)
+      .then(function () {
+        return createPerson(this)
+      })
+      .then(function (obj) {
+        return addToDatabase(obj)
+      })
+      .then(function () {
+        resolve(null)
+      })
+      .catch(function (err) {
+        reject(new Error(err))
+      })
+    })
   }
-
-  createPerson () {
-    return createPerson(this) 
-  }
-
-
-  addToDatabase (obj) {
-    return addToDatabase(obj)  
-  }
-
+  
 }
 
 module.exports = CreateUser
@@ -81,5 +71,6 @@ let addToDatabase = function (obj) {
   updates['/crystalCubes/'+obj._machineId+'/user/'+obj._userId] = obj._userData
   fb.database().ref().update(updates)
 }
+
 
 
