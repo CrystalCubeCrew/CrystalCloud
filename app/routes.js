@@ -65,7 +65,13 @@ module.exports = function (app) {
 
   app.post('/crystalRequest', function(req,res){
     let api = new Apiai(req.body)
-    res.json({response: 'poop'})
+    api.getIntent()
+    .then(function(data){
+      res.json({response: data.result.metadata.intentName})
+    })
+    .catch(function(err){
+      res.json(err)
+    })
   })
 
 }
