@@ -1,4 +1,5 @@
 let ActionFactory = require('../factoryClass/ActionFactory')
+let Apiai = require('./classes/Apiai')
 
 module.exports = function (app) {
   // app.get('/sendText/:userId/:person/:message',function(req,res){
@@ -63,8 +64,7 @@ module.exports = function (app) {
 
 
   app.post('/crystalRequest', function(req,res){
-    console.log('got request')
-    console.log(req.body)
+    let api = new Apiai(req.body)
     res.json({response: 'poop'})
   })
 
