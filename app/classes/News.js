@@ -1,37 +1,35 @@
 let request = require('superagent') 
-let newsConfig = require('../config/newsConfig')
-
-let formStrings = function (obj) {
-  let string = ''
-
-  Object.keys(obj).map(function(key){
-    string = string + ' ' + obj[key] 
-  })
-  return string;
-} 
-
+let newsConfig = require('../../config/newsConfig')
+let formStrings = require('../singleFunction/formString')
 
 class News{
 	
-	constructor (Catalog){
+	constructor ({Catalog}){
 			this.Catalog =Catalog 
 			this.begindate ='20170101'
 			this.fl = 'headline,lead_paragraph'
 	}
 
-	getnews(){
-		return getnews(this)
+	preformAction () {
+		return new Promise(function (resolve,reject) {
+			getNews(this)
+			.then(function (data) {
+				return setResponse(data)
+			})
+			.then(function (data) {
+				resolve({response: data})
+			})
+			.catch(function (err) {
+				reject(new Error(err))
+			})
+		})
 	}
-
-	setResponse(data){
-		return setResponse(this,data)
-	}
+	
 }
 		
 module.exports = News
 
-let getnews = function(obj){
-
+let getNews = function(obj){
 	return new Promise(function(resolve, reject){
 		request
 		.get(newsConfig.url)
@@ -48,9 +46,7 @@ let getnews = function(obj){
 }
 
 let setResponse = function(obj,data){
-
-	return Promise.resolve(
-		function(){
+	return Promise.resolve(function(){
 			let objData = JSON.parse(data.text)
 			objData = objData.response
 			
@@ -60,12 +56,9 @@ let setResponse = function(obj,data){
 				paragraph:objData.docs[0].lead_paragraph
 			}
 
-			return formStrings(out)
-
+			return formStrings(out)	
 		}()
-
-
-		)
+	)
 }
 
 

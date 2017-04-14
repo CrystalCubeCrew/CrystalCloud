@@ -1,20 +1,32 @@
-let fb = require('../config/firebaseConfig')
-let client = require('../config/faceConfig')
+let fb = require('../../config/firebaseConfig')
+let client = require('../../config/faceConfig')
+let writeFile = require('../singleFunction/writeFile')
 
 class GetUser {
-
-  constructor ({machineId, filePath}) {
+  constructor ({machineId, filePath,file}) {
     this._machineId = machineId
-    this._userFaceImg = filePath
+    this._filePath = filePath
+    this._file = file
   }
 
-  findUser () {
-    return findUser(this)
+  performAction () {
+    return new Promise(function (resolve, reject) {
+      writeFile(this)
+      .then(function () {
+        return findUser(this)
+      })
+      .then(function (userId) {
+        return getUserFromDatabase(this,userId)
+      })
+      .then(function () {
+        resolve({firstName: data.profile.firstName, lastName: data.profile.lastName})
+      })
+      .catch(function (err) {
+        reject(new Error(err))
+      })
+    })
   }
-
-  getUserFromDatabase (id) {
-    return getUserFromDatabase(this, id)
-  }
+  
 }
 
 module.exports = GetUser
@@ -26,7 +38,6 @@ let findUser = function (obj) {
       returnFaceId: true
     })
     .then(function(userData) {
-      console.log(userData)
       if(userData.length > 0){
         var faces = [userData[0].faceId];
         return client.face.identify(faces, obj._machineId, 1, 0.4)
