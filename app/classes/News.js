@@ -10,7 +10,7 @@ class News{
 			this.fl = 'headline,lead_paragraph'
 	}
 
-	preformAction () {
+	performAction() {
 		return new Promise(function (resolve,reject) {
 			getNews(this)
 			.then(function (data) {

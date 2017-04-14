@@ -30,7 +30,7 @@ module.exports = function (app) {
 
     let action = new ActionFactory('Create User', holder)
 
-    action.preFormAction()
+    action.performAction()
     .then(function(){
       console.log('user created')
       res.end()
@@ -51,7 +51,7 @@ module.exports = function (app) {
 
     let action = new ActionFactory('Get User', holder)
 
-    action.preFormAction()
+    action.performAction()
     .then(function(data){
       console.log(data)
       res.json(data)
@@ -67,7 +67,13 @@ module.exports = function (app) {
     let api = new Apiai(req.body)
     api.getIntent()
     .then(function(data){
-      res.json({response: data.result.metadata.intentName})
+      let intent = data.result.metadata.intentName
+      let action = new ActionFactory(intent,{location: '19122'})
+
+      return action.performAction()
+    })
+    .then(function(data){
+      res.end(data)
     })
     .catch(function(err){
       res.json(err)

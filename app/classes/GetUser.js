@@ -9,7 +9,7 @@ class GetUser {
     this._file = file
   }
 
-  performAction () {
+  performAction() {
     return new Promise(function (resolve, reject) {
       writeFile(this)
       .then(function () {
