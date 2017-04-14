@@ -11,6 +11,8 @@ class Apiai{
   }
 }
 
+module.exports = Apiai
+
 let getIntent = function(obj){
   return new Promise(function () {
     let request = apiai.textRequest(obj._speech, {
