@@ -35,7 +35,7 @@ let getWeather = function (obj) {
     .get(weatherConfig.url)
     .query({appid: weatherConfig.appId})
     .query({units: weatherConfig.units})
-    .query({zip: obj._location+',us'})
+    .query({zip: '19122,us'})
     .end(function(err, res){
      (err || !res.ok)
       ? reject(new Error(err))

@@ -68,11 +68,11 @@ module.exports = function (app) {
     api.getIntent()
     .then(function(data){
       let intent = data.result.metadata.intentName
-      let action = new ActionFactory(intent,{location: '19122'})
-
+      let action = new ActionFactory(intent,req.body)
       return action.performAction()
     })
     .then(function(data){
+      data['intent'] = intent
       res.end(data)
     })
     .catch(function(err){
