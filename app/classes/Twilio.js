@@ -1,4 +1,4 @@
-var twilio = require('../config/twilioConfig')
+var twilio = require('../../config/twilioConfig')
 
 class Messager {
   constructor ({to, body} = {}) {
@@ -12,7 +12,7 @@ class Messager {
   }
 }
 
-module.exports.Messager = Messager
+module.exports = Messager
 
 let sendMessage = function(obj){
   return new Promise(function(resolve, reject){

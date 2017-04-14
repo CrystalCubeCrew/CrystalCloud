@@ -1,33 +1,31 @@
 let request = require('superagent')
-let weatherConfig = require('../config/weatherConfig')
-
-let formStrings = function (obj) {
-  let string = ''
-
-  Object.keys(obj).map(function(key){
-    string = string + ' ' + obj[key] 
-  })
-  return string;
-} 
+let weatherConfig = require('../../config/weatherConfig')
+let formStrings = require('../singleFunction/formString')
 
 class Weather {
 
-  constructor (location) {
-
+  constructor ({location}) {
     this._location = location
-
   }
 
-  setResponse (data) {
-     return setResponse(data)
+  preformAction(){
+    return new Promise(function (resolve,reject) {
+      getWeather(this)
+      .then(function(data){
+        return setResponse(data)
+      })
+      .then(function (data) {
+        resolve({response: data})
+      })
+      .catch(function(err){
+        reject(new Error(err))
+      })
+    })
   }
 
-  getWeather () {
-    return getWeather(this)
-  }
 }
 
-module.exports.Weather = Weather
+module.exports = Weather
 
 let getWeather = function (obj) {
   return new Promise (function (resolve, reject) {
