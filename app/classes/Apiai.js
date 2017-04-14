@@ -14,16 +14,16 @@ class Apiai{
 module.exports = Apiai
 
 let getIntent = function(obj){
-  return new Promise(function () {
+  return new Promise(function (resolve, reject) {
     let request = apiai.textRequest(obj._speech, {
        sessionId: '<unique session id>'  
     })
       request.on('response', function(response) {
-          console.log(response);
+          resolve(response);
       });
 
       request.on('error', function(error) {
-          console.log(error);
+          reject(new Error(error));
       });
 
       request.end();
