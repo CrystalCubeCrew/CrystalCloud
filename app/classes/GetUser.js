@@ -26,7 +26,7 @@ class GetUser {
       })
     })
   }
-  
+
 }
 
 module.exports = GetUser
@@ -39,7 +39,7 @@ let findUser = function (obj) {
     })
     .then(function(userData) {
       if(userData.length > 0){
-        var faces = [userData[0].faceId];
+        let faces = [userData[0].faceId]
         return client.face.identify(faces, obj._machineId, 1, 0.4)
       }
       else
