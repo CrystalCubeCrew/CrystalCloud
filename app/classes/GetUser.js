@@ -4,7 +4,7 @@ let writeFile = require('../singleFunction/writeFile')
 
 class GetUser {
   constructor ({machineId, filePath,file}) {
-  
+
     this._machineId = machineId
     this._filePath = filePath
     this._file = file
@@ -21,7 +21,7 @@ class GetUser {
       .then(function (userId) {
         return getUserFromDatabase(obj,userId)
       })
-      .then(function () {
+      .then(function (data) {
         resolve({firstName: data.profile.firstName, lastName: data.profile.lastName})
       })
       .catch(function (err) {
