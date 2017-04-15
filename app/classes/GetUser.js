@@ -10,13 +10,15 @@ class GetUser {
   }
 
   performAction() {
+    let obj = this
+   
     return new Promise(function (resolve, reject) {
-      writeFile(this)
+      writeFile(obj)
       .then(function () {
-        return findUser(this)
+        return findUser(obj)
       })
       .then(function (userId) {
-        return getUserFromDatabase(this,userId)
+        return getUserFromDatabase(obj,userId)
       })
       .then(function () {
         resolve({firstName: data.profile.firstName, lastName: data.profile.lastName})
