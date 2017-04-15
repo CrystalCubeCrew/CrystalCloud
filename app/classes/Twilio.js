@@ -1,13 +1,13 @@
 var twilio = require('../../config/twilioConfig')
 
 class Messager {
-  constructor ({to, body} = {}) {
-    this.to = to
+  constructor ({to, any}) {
+    this.to = to  
     this.from = '8563734007'
-    this.body = body
+    this.body = any[1]
   }
 
-  sendMessage () {
+  performAction(){
     return sendMessage(this)
   }
 }
@@ -17,7 +17,7 @@ module.exports = Messager
 let sendMessage = function(obj){
   return new Promise(function(resolve, reject){
     twilio.messages.create(obj,function(err){
-      (err)
+      (err || obj.to === null || obj.body === null)
       ? reject(new Error(err))
       : resolve(true) 
     })

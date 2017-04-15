@@ -13,7 +13,6 @@ function configFb () {
 
 }
 
-
 module.exports = configFb()
 
 
