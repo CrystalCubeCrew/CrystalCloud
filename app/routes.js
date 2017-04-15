@@ -58,7 +58,7 @@ module.exports = function (app) {
     })
     .catch(function(err){
       console.log(err)
-      res.json({error: 'Failed to add user'})
+      res.json({error: 'Failed to find user'})
     })
   })
 
