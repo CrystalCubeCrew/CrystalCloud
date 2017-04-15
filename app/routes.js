@@ -70,7 +70,9 @@ module.exports = function (app) {
     api.getIntent()
     .then(function(data){
       intent = data.result.metadata.intentName
-      let action = new ActionFactory(intent,req.body)
+      let parameters = data.result.parameters
+      console.log(parameters)
+      let action = new ActionFactory(intent,parameters)
 
       return action.performAction()
     })

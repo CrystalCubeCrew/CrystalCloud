@@ -3,6 +3,7 @@ let News = require('../app/classes/News')
 let Weather = require('../app/classes/Weather')
 let CreateUser = require('../app/classes/CreateUser')
 let GetUser = require('../app/classes/GetUser')
+let MathAction = require('../app/classes/Math')
 
 class Action {
   constructor (intent, data) {
@@ -18,8 +19,11 @@ class Action {
     else if(intent === 'Get User')
       return new GetUser(data)
 
-    else if(intent === 'Music')
-      return new Music(data)   
+    else if(intent === 'music intent')
+      return new Music(data)
+
+    else if(intent === 'math intent')
+      return new MathAction(data) 
   }
 }
 

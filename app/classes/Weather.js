@@ -4,8 +4,11 @@ let formStrings = require('../singleFunction/formString')
 
 class Weather {
 
-  constructor ({location}) {
-    this._location = location
+  constructor (obj) {
+    this._location = obj.Location 
+      || obj['geo-state-us'] 
+      || obj['geo-city'] 
+      ||'Philadelphia'
   }
 
   performAction(){
@@ -29,13 +32,12 @@ class Weather {
 module.exports = Weather
 
 let getWeather = function (obj) {
-  //console.log(obj)
   return new Promise (function (resolve, reject) {
     request
     .get(weatherConfig.url)
     .query({appid: weatherConfig.appId})
     .query({units: weatherConfig.units})
-    .query({zip: '19122,us'})
+    .query({q: obj._location+',us'})
     .end(function(err, res){
      (err || !res.ok)
       ? reject(new Error(err))
@@ -51,9 +53,10 @@ let setResponse = function(data) {
       let obj = JSON.parse(data.text)
 
       let out = {
-        place: 'The weather in ' + obj.name,
-        degress: 'is ' + obj.main.temp + ' degree and',
-        weather: obj.weather[0].description
+        degress: `Its ${obj.main.temp} degree and`,
+        weather: obj.weather[0].description,
+        place: `in ${obj.name}`
+        
       }
 
       return formStrings(out)
