@@ -4,6 +4,7 @@ let writeFile = require('../singleFunction/writeFile')
 
 class GetUser {
   constructor ({machineId, filePath,file}) {
+  
     this._machineId = machineId
     this._filePath = filePath
     this._file = file
