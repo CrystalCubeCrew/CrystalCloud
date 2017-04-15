@@ -46,7 +46,7 @@ module.exports = function (app) {
     let holder = {
       file: req.body.file,
       machineId: req.body.machineId,
-      filePath: `img/faces/ ${req.body.fileName}`
+      filePath: `img/faces/${req.body.fileName}`
     }
 
     let action = new ActionFactory('Get User', holder)
