@@ -37,7 +37,7 @@ module.exports = GetUser
 let findUser = function (obj) {
   return new Promise(function (resolve, reject) {
     client.face.detect({
-      path: obj._userFaceImg,
+      path: obj._filePath,
       returnFaceId: true
     })
     .then(function(userData) {
