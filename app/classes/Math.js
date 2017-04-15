@@ -13,5 +13,7 @@ class Math{
 module.exports = Math
 
 let createResponse = function (obj) {
-  return Promise.resolve(`${obj._numbers[0]} ${obj._operator} ${obj._numbers[1]}` )
+  return Promise.resolve({
+    response: `${obj._numbers[0]} ${obj._operator} ${obj._numbers[1]}`
+  })
 }
