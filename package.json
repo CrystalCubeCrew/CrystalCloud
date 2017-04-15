@@ -11,6 +11,7 @@
   "dependencies": {
     "apiai": "^4.0.2",
     "body-parser": "^1.17.1",
+    "date-format": "^1.1.0",
     "express": "^4.15.2",
     "firebase": "^3.7.4",
     "firebase-admin": "^4.1.4",

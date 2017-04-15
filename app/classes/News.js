@@ -1,27 +1,31 @@
 let request = require('superagent') 
 let newsConfig = require('../../config/newsConfig')
 let formStrings = require('../singleFunction/formString')
+let format = require('date-format')
 
 class News{
 	
-	constructor ({Catalog}){
-			this.Catalog =Catalog 
-			this.begindate ='20170101'
+	constructor ({section}){
+			this.Catalog = section 
+			this.begindate = format.asString('yyyyMMdd', new Date())
 			this.fl = 'headline,lead_paragraph'
 	}
 
 	performAction() {
+		let obj = this
 		return new Promise(function (resolve,reject) {
-			getNews(this)
+			getNews(obj)
 			.then(function (data) {
-				return setResponse(data)
+				return setResponse(obj, data)
 			})
 			.then(function (data) {
 				resolve({response: data})
 			})
 			.catch(function (err) {
+				throw err
 				reject(new Error(err))
 			})
+
 		})
 	}
 	
@@ -30,6 +34,7 @@ class News{
 module.exports = News
 
 let getNews = function(obj){
+
 	return new Promise(function(resolve, reject){
 		request
 		.get(newsConfig.url)
@@ -40,9 +45,9 @@ let getNews = function(obj){
 		.end(function(err, res){
 			(err || !res.ok)
 			? reject(new Error(err))
-            : resolve(res)
-        })
+      : resolve(res)
     })
+  })
 }
 
 let setResponse = function(obj,data){
@@ -51,9 +56,8 @@ let setResponse = function(obj,data){
 			objData = objData.response
 			
 			let out = {
-				category: 'In todays top news in ' + obj.Catalog,
-				headline:'is ' +objData.docs[0].headline.print_headline,
-				paragraph:objData.docs[0].lead_paragraph
+				category: `In todays top news in ${obj.Catalog},`,
+				paragraph: objData.docs[0].lead_paragraph
 			}
 
 			return formStrings(out)	
