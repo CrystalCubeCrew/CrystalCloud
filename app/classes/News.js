@@ -56,7 +56,7 @@ let setResponse = function(obj,data){
 			let objData = JSON.parse(data.text)
 			objData = objData.response
 
-			obj.Catalog = (obj.Catalog === 'world') ? 'The world' : objData.Catalog
+			obj.Catalog = (obj.Catalog === 'world') ? 'The world' : obj.Catalog
 			console.log(objData)
 			let out = {
 				category: `In todays top news in ${obj.Catalog},`,
