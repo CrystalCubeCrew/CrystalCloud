@@ -22,7 +22,6 @@ class News{
 				resolve({response: data})
 			})
 			.catch(function (err) {
-				throw err
 				reject(new Error(err))
 			})
 
