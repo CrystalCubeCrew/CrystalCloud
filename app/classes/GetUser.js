@@ -22,7 +22,7 @@ class GetUser {
         return getUserFromDatabase(obj,userId)
       })
       .then(function (data) {
-        resolve({firstName: data.profile.firstName, lastName: data.profile.lastName})
+        resolve(response: {firstName: data.profile.firstName, lastName: data.profile.lastName})
       })
       .catch(function (err) {
         reject(new Error(err))
