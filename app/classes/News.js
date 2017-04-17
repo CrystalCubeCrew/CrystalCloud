@@ -4,9 +4,11 @@ let formStrings = require('../singleFunction/formString')
 let moment = require('moment-timezone')
 
 class News{
-	
 	constructor ({section}){
+			console.log('news')
+			this.date = new Date()
 			this.Catalog = section || 'world'
+
 			this.begindate = moment().tz('America/New_York').format('YYYYMMDD')
 			console.log(this.begindate)
 			this.fl = 'headline,lead_paragraph'
@@ -45,8 +47,8 @@ let getNews = function(obj){
 		.query({'fl': obj.fl})
 		.end(function(err, res){
 			(err || !res.ok)
-			? reject(new Error(err))
-      : resolve(res)
+				? reject(new Error(err))
+      				: resolve(res)
     })
   })
 }
