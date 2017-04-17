@@ -4,10 +4,12 @@ let formStrings = require('../singleFunction/formString')
 let format = require('date-format')
 
 class News{
-	
 	constructor ({section}){
+			console.log('news')
+			this.date = new Date()
 			this.Catalog = section || 'world'
-			this.begindate = format.asString('yyyyMMdd', new Date() - 1)
+			this.begindate = format.asString('yyyyMMdd', this.date.setDate(this.date.getDate() - 1))
+			console.log(this.begindate)
 			this.fl = 'headline,lead_paragraph'
 	}
 
@@ -44,8 +46,8 @@ let getNews = function(obj){
 		.query({'fl': obj.fl})
 		.end(function(err, res){
 			(err || !res.ok)
-			? reject(new Error(err))
-      : resolve(res)
+				? reject(new Error(err))
+      				: resolve(res)
     })
   })
 }
