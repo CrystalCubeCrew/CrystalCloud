@@ -6,7 +6,7 @@ let format = require('date-format')
 class News{
 	
 	constructor ({section}){
-			this.Catalog = section 
+			this.Catalog = section || 'world'
 			this.begindate = format.asString('yyyyMMdd', new Date())
 			this.fl = 'headline,lead_paragraph'
 	}
@@ -22,6 +22,7 @@ class News{
 				resolve({response: data})
 			})
 			.catch(function (err) {
+				console.log(err)
 				reject(new Error(err))
 			})
 
