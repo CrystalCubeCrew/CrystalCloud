@@ -1,13 +1,14 @@
 let request = require('superagent') 
 let newsConfig = require('../../config/newsConfig')
 let formStrings = require('../singleFunction/formString')
-let format = require('date-format')
+let moment = require('moment-timezone')
 
 class News{
 	
 	constructor ({section}){
 			this.Catalog = section || 'world'
-			this.begindate = format.asString('yyyyMMdd', new Date() - 1)
+			this.begindate = moment().tz('America/New_York').format('YYYYMMDD')
+			console.log(this.begindate)
 			this.fl = 'headline,lead_paragraph'
 	}
 
