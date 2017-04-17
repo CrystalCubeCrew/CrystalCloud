@@ -7,7 +7,7 @@ class News{
 	
 	constructor ({section}){
 			this.Catalog = section || 'world'
-			this.begindate = format.asString('yyyyMMdd', new Date())
+			this.begindate = format.asString('yyyyMMdd', new Date() - 1)
 			this.fl = 'headline,lead_paragraph'
 	}
 
