@@ -54,7 +54,7 @@ let setResponse = function(obj,data){
 	return Promise.resolve(function(){
 			let objData = JSON.parse(data.text)
 			objData = objData.response
-			
+			console.log(objData)
 			let out = {
 				category: `In todays top news in ${obj.Catalog},`,
 				paragraph: objData.docs[0].lead_paragraph
