@@ -12,7 +12,7 @@ module.exports = function (app) {
       filePath: filePath
     }
 
-    let action = new ActionFactory('Create User', holder)
+    let action = new ActionFactory({intent: 'Create User', data: holder})
 
     action.performAction()
     .then(function(){
@@ -32,8 +32,8 @@ module.exports = function (app) {
       machineId: req.body.machineId,
       filePath: `img/faces/${req.body.fileName}`
     }
-    console.log('run right request')
-    let action = new ActionFactory('Get User', holder)
+
+    let action = new ActionFactory({intent: 'Get User', data: holder})
 
     action.performAction()
     .then(function(data){
