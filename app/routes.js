@@ -1,5 +1,6 @@
 let ActionFactory = require('../factoryClass/ActionFactory')
 let Apiai = require('./classes/Apiai')
+let Save = require('./classes/SaveActivity')
 
 module.exports = function (app) {
 
@@ -48,22 +49,27 @@ module.exports = function (app) {
 
   app.post('/crystalRequest', function(req,res){
     let api = new Apiai(req.body)
-    let intent = null
+    let sendData = {}
 
     api.getIntent()
     .then(function(data){
-      intent = data.result.metadata.intentName
-      let parameters = data.result.parameters
-      console.log(parameters)
-      let action = new ActionFactory(intent,parameters)
+      sendData.intent = data.result.metadata.intentName
+      sendData.data = data.result.parameters
 
+      Object.assign(sendData, req.body)
+      let action = new ActionFactory(sendData)
       return action.performAction()
     })
     .then(function(data){
-      data['intent'] = intent
-      res.json(data)
+      Object.assign(sendData, data)
+      let save = new Save(sendData)
+      return save.saveActivity()
+    })
+    .then(function(){
+      res.json(sendData)
     })
     .catch(function(err){
+      console.log(err)
       res.json({error: 'Request Failed'})
     })
   })
