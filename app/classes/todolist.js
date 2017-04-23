@@ -3,12 +3,10 @@ let db = fb.database()
 
 class Todolist {
 
-constructor({userid, machineid}){
+constructor(userid, machineid){
 
-  this._userid= userid
-  this._machineid=machineid
-
-
+  this._userid = userid
+  this._machineid = machineid
 }
 
 performAction(){
@@ -35,46 +33,36 @@ module.exports = Todolist
 
 //get userinfo,machineinfo and todolist
 let gettodolist = function(obj){
-   let userRef = fb.database().ref('/crystalCubes/crystal_chan_6/user/31c54483-2698-4afb-83fc-3d7b465b69b4/todolist/') 
+   let userRef = fb.database().ref(`/crystalCubes/${obj._machineid}/user/${obj._userid}/todolist/`) 
    return new Promise(function (resolve,reject) {
      userRef.on('value',function (snapshot) {
-       //console.log(snapshot.val())
        resolve(snapshot.val())
     })
   }) 
-
-  return Promise.resolve('' )
-
-
 }
 
 let setResponse = function(data){
-  // if(data == null)
-  //   reject()
+
   return Promise.resolve(
     function(){
-  let list = []
-  let i = 0;
-  for(key in data){
-    list.push(data[key].task)
-    if(data[key] == null || i > 4){
-      break;
-    }
-    ++i;
-  }
+      let list = []
+      let i = 0;
+      for(key in data){
+        list.push(data[key].task)
+        if(data[key] == null || i > 4){
+          break;
+        }
+        ++i;
+      }
 
+      let response = list.reduce(function(acc, element){
+        return acc +' '+ element 
+      },'')
 
-
-  let response = list.reduce(function(acc, element){
-    return acc +' '+ element 
-  },'')
-
-  return response
-
- }()
- )
-
- } 
+      return response
+    }()
+  )
+} 
 
 
 // db.ref('/sujen/todolist').on('value', function(snapshot){
