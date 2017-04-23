@@ -22,7 +22,7 @@ class GetUser {
         return getUserFromDatabase(obj,userId)
       })
       .then(function (data) {
-        resolve({firstName: data.profile.firstName, lastName: data.profile.lastName})
+        resolve({firstName: data.userName.profile.firstName, lastName: data.userName.profile.lastName, userId: data.userId})
       })
       .catch(function (err) {
         reject(new Error(err))
@@ -61,7 +61,12 @@ let getUserFromDatabase = function (obj,userId) {
   let userRef = fb.database().ref('/crystalCubes/'+obj._machineId+'/user/'+userId) 
   return new Promise(function (resolve,reject) {
     userRef.on('value',function (snapshot) {
-      resolve(snapshot.val())
+
+      resolve({
+        userName: snapshot.val(),
+        userId: userId
+      })
+
     })
   }) 
 }

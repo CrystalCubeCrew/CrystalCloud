@@ -6,7 +6,8 @@ let GetUser = require('../app/classes/GetUser')
 let MathAction = require('../app/classes/Math')
 
 class Action {
-  constructor (intent, data) {
+  constructor ({intent, data, userId, machineId}) {
+    console.log(userId)
     if(intent === 'news intent')
       return new News(data)
 
