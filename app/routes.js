@@ -2,23 +2,6 @@ let ActionFactory = require('../factoryClass/ActionFactory')
 let Apiai = require('./classes/Apiai')
 
 module.exports = function (app) {
-  // app.get('/sendText/:userId/:person/:message',function(req,res){
-  //   let holder = {
-  //     to: '2158631018',
-  //     body: 'test'
-  //   }
-
-  //   let messager = new twilioAPI.Messager(holder)
-
-  //   messager.sendMessage()
-  //   .then(function(){
-  //     res.send('success')
-  //   })
-  //   .catch(function(){
-  //     res.send('fail')
-  //   })
-  // }) 
-
 
   app.post('/createUser', function(req,res){
     let holder = {
