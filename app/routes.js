@@ -55,7 +55,6 @@ module.exports = function (app) {
     .then(function(data){
       sendData.intent = data.result.metadata.intentName
       sendData.data = data.result.parameters
-      console.log('run wrong request')
 
       Object.assign(sendData, req.body)
       let action = new ActionFactory(sendData)
