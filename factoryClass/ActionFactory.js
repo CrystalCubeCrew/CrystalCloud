@@ -4,6 +4,7 @@ let Weather = require('../app/classes/Weather')
 let CreateUser = require('../app/classes/CreateUser')
 let GetUser = require('../app/classes/GetUser')
 let MathAction = require('../app/classes/Math')
+let todoslist = require('../app/classes/todolist')
 
 class Action {
   constructor ({intent, data, userId, machineId}) {
@@ -25,6 +26,9 @@ class Action {
 
     else if(intent === 'math intent')
       return new MathAction(data) 
+
+    else if(intent === 'todolist intent')
+      return new todoslist(data) 
   }
 }
 

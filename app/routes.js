@@ -72,6 +72,7 @@ module.exports = function (app) {
     .catch(function(err){
       console.log(err)
       res.json({error: 'Request Failed'})
+
     })
   })
 
