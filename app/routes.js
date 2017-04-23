@@ -81,7 +81,8 @@ module.exports = function (app) {
       res.json(data)
     })
     .catch(function(err){
-      res.json({error: 'Request Failed'})
+      throw err;
+      res.json({error: err})
     })
   })
 
