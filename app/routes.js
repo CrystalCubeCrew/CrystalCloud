@@ -1,24 +1,8 @@
 let ActionFactory = require('../factoryClass/ActionFactory')
 let Apiai = require('./classes/Apiai')
+let Save = require('./classes/SaveActivity')
 
 module.exports = function (app) {
-  // app.get('/sendText/:userId/:person/:message',function(req,res){
-  //   let holder = {
-  //     to: '2158631018',
-  //     body: 'test'
-  //   }
-
-  //   let messager = new twilioAPI.Messager(holder)
-
-  //   messager.sendMessage()
-  //   .then(function(){
-  //     res.send('success')
-  //   })
-  //   .catch(function(){
-  //     res.send('fail')
-  //   })
-  // }) 
-
 
   app.post('/createUser', function(req,res){
     let holder = {
@@ -28,7 +12,7 @@ module.exports = function (app) {
       filePath: filePath
     }
 
-    let action = new ActionFactory('Create User', holder)
+    let action = new ActionFactory({intent: 'Create User', data: holder})
 
     action.performAction()
     .then(function(){
@@ -49,7 +33,7 @@ module.exports = function (app) {
       filePath: `img/faces/${req.body.fileName}`
     }
 
-    let action = new ActionFactory('Get User', holder)
+    let action = new ActionFactory({intent: 'Get User', data: holder})
 
     action.performAction()
     .then(function(data){
@@ -65,24 +49,30 @@ module.exports = function (app) {
 
   app.post('/crystalRequest', function(req,res){
     let api = new Apiai(req.body)
-    let intent = null
+    let sendData = {}
 
     api.getIntent()
     .then(function(data){
-      intent = data.result.metadata.intentName
-      let parameters = data.result.parameters
-      console.log(parameters)
-      let action = new ActionFactory(intent,parameters)
+      sendData.intent = data.result.metadata.intentName
+      sendData.data = data.result.parameters
+      console.log('run wrong request')
 
+      Object.assign(sendData, req.body)
+      let action = new ActionFactory(sendData)
       return action.performAction()
     })
     .then(function(data){
-      data['intent'] = intent
-      res.json(data)
+      Object.assign(sendData, data)
+      let save = new Save(sendData)
+      return save.saveActivity()
+    })
+    .then(function(){
+      res.json(sendData)
     })
     .catch(function(err){
-      throw err;
-      res.json({error: err})
+      console.log(err)
+      res.json({error: 'Request Failed'})
+
     })
   })
 

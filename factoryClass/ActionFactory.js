@@ -7,7 +7,8 @@ let MathAction = require('../app/classes/Math')
 let todoslist = require('../app/classes/todolist')
 
 class Action {
-  constructor (intent, data) {
+  constructor ({intent, data, userId, machineId}) {
+    console.log(userId)
     if(intent === 'news intent')
       return new News(data)
 
