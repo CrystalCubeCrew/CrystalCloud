@@ -24,10 +24,12 @@ class CreateUser {
   }
 
   performAction() {
+    let obj = this
+ 
     return new Promise(function (resolve, reject) {
-      writeFile(this)
+      writeFile(obj)
       .then(function () {
-        return createPerson(this)
+        return createPerson(obj)
       })
       .then(function (obj) {
         return addToDatabase(obj)
