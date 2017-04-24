@@ -3,7 +3,7 @@ let fb = require('../../config/firebaseConfig').database()
 
 class Messager {
   constructor ({data, userId, machineId}) {
-    this.person = data.any[0]
+    this.person = data.any[0].toLowerCase()
     this.to = null  
     this.from = '8563734007'
     this.body = data.any[1]
@@ -34,11 +34,12 @@ module.exports = Messager
 
 let getContact = function(obj){
   console.log(obj)
-  let query = fb.ref(`/crystalCubes/${obj.machineId}/user/${obj.userId}/contacts/${obj.person}.toLowerCase()`)
+  let query = fb.ref(`/crystalCubes/${obj.machineId}/user/${obj.userId}/contacts/${obj.person}`)
   return new Promise(function(resolve, reject){
     query.on('value',function(snapshot){
       if(snapshot.val() == null)
         reject(null)
+      console.log(snapshot.val())
       resolve(snapshot.val())
     })
   })
