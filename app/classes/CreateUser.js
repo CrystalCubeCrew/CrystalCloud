@@ -5,7 +5,7 @@ let writeFile = require('../singleFunction/writeFile')
 class CreateUser {
 
   constructor({machineId, firstName, lastName, filePath, file} = {}){
-    console.log(file)
+    console.log(filePath)
     this._machineId = machineId
     this._userId = null
     this._filePath = filePath
