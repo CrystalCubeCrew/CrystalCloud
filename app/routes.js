@@ -20,8 +20,8 @@ module.exports = function (app) {
       console.log('user created')
       res.end()
     })
-    .catch(function(){
-      console.log('failed to create user')
+    .catch(function(err){
+      console.log(err)
       res.end()
     })
   })
