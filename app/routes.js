@@ -9,7 +9,7 @@ module.exports = function (app) {
       machineId: req.body.machineId,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      filePath: `img/faces/${req.body.fileName}`
+      filePath: `img/faces/${req.body.fileName}`,
       file : req.body.file
     }
 
