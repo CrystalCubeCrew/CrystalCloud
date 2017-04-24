@@ -56,7 +56,7 @@ let setResponse = function(data){
       }
 
       let response = list.reduce(function(acc, element){
-        return acc +' '+ element 
+        return acc +', '+ element 
       },'')
 
       return response
