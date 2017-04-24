@@ -1,25 +1,54 @@
-var twilio = require('../../config/twilioConfig')
+let twilio = require('../../config/twilioConfig')
+let fb = require('../../config/firebaseConfig').database()
 
 class Messager {
-  constructor ({to, any}) {
-    this.to = to  
+  constructor ({data, userId, machineId}) {
+    this.person = data.any[0]
+    this.to = null  
     this.from = '8563734007'
-    this.body = any[1]
+    this.body = data.any[1]
+    this.userId = userId
+    this.machineId = machineId
   }
 
   performAction(){
-    return sendMessage(this)
+    let obj = this
+
+    return new Promise (function(resolve, reject){
+      getContact(obj)
+      .then(function(data){
+        obj.to = data
+        return sendMessage(obj)
+      })
+      .then(function(data){
+        resolve({response: data})
+      })
+      .catch(function(){
+        reject(null)
+      })
+    })
   }
 }
 
 module.exports = Messager
+
+let getContact = function(obj){
+  let query = fb.ref(`/crystalCubes/${obj.machineId}/user/${obj.userId}/contacts/${obj.person}`)
+  return new Promise(function(resolve, reject){
+    query.on('value',function(snapshot){
+      if(snapshot.val() == null)
+        reject(null)
+      resolve(snapshot.val())
+    })
+  })
+}
 
 let sendMessage = function(obj){
   return new Promise(function(resolve, reject){
     twilio.messages.create(obj,function(err){
       (err || obj.to === null || obj.body === null)
       ? reject(new Error(err))
-      : resolve(true) 
+      : resolve(`messaged ${obj.person} ${obj.body}`) 
     })
   })
 }

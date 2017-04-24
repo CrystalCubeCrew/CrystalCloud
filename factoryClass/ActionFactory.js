@@ -5,6 +5,7 @@ let CreateUser = require('../app/classes/CreateUser')
 let GetUser = require('../app/classes/GetUser')
 let MathAction = require('../app/classes/Math')
 let todoslist = require('../app/classes/todolist')
+let Twilio = require('../app/classes/Twilio')
 
 class Action {
   constructor ({intent, data, userId, machineId}) {
@@ -28,7 +29,10 @@ class Action {
       return new MathAction(data) 
 
     else if(intent === 'todolist intent')
-      return new todoslist(userId, machineId) 
+      return new todoslist(userId, machineId)
+
+    else if(intent === 'text intent')
+      return new Twilio({data: data, userId: userId, machineId: machineId}) 
   }
 }
 
