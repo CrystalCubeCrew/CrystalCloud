@@ -9,7 +9,6 @@ let decodeBase64Image = function(dataString) {
 }
 
 let writeFile = function (obj) {
-  console.log(obj)
   return new Promise(function (resolve, reject) {
       let imageBuffer = decodeBase64Image(obj._file)
 

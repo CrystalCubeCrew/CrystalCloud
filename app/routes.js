@@ -17,11 +17,9 @@ module.exports = function (app) {
 
     action.performAction()
     .then(function(){
-      console.log('user created')
       res.end()
     })
     .catch(function(err){
-      console.log(err)
       res.end()
     })
   })
@@ -38,11 +36,9 @@ module.exports = function (app) {
 
     action.performAction()
     .then(function(data){
-      console.log(data)
       res.json(data)
     })
     .catch(function(err){
-      console.log(err)
       res.json({error: 'Failed to find user'})
     })
   })
@@ -70,7 +66,6 @@ module.exports = function (app) {
       res.json(sendData)
     })
     .catch(function(err){
-      console.log(err)
       res.json({error: 'Request Failed'})
 
     })

@@ -9,7 +9,6 @@ let Twilio = require('../app/classes/Twilio')
 
 class Action {
   constructor ({intent, data, userId, machineId}) {
-    console.log(userId)
     if(intent === 'news intent')
       return new News(data)
 
