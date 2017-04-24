@@ -51,7 +51,7 @@ let createPerson = function (obj) {
     client.face.person.create(obj._machineId, name)
     .then(function(personInfo){
       obj._userId =  personInfo.personId
-      return client.face.person.addFace(obj._machineId, personInfo.personId,{ path: obj._userFaceImg})
+      return client.face.person.addFace(obj._machineId, personInfo.personId,{ path: obj._filePath})
     })
     .then(function () {
       return client.face.personGroup.trainingStart(obj._machineId)
