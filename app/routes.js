@@ -71,4 +71,17 @@ module.exports = function (app) {
     })
   })
 
+
+  app.post('/checkImage',function(req,res){
+    let action = new ActionFactory({intent: 'check image', data: req.body})
+    action.performAction()
+    .then(function(out){
+      console.log(out)
+    })
+    .catch(function(err){
+      console.log(err)
+    })
+    res.end()
+  })
+
 }

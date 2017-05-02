@@ -17,7 +17,6 @@ performAction(){
         return setResponse(data)
       })
     .then(function (data) {
-        console.log(data)
         resolve({response: data})
       })
       .catch(function(err){
