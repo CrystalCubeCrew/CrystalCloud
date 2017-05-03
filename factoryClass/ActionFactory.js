@@ -10,6 +10,7 @@ let Predicter = require('../app/classes/Clarifai')
 
 class Action {
   constructor ({intent, data, userId, machineId}) {
+    console.log('action made')
     if(intent === 'news intent')
       return new News(data)
 
