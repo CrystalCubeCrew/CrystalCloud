@@ -44,7 +44,6 @@ function filterHand (list){
         let finder = list.filter(function(elements){
             return elements.name === 'hand'
         })
-
-        resolve(finder)
+        (finder.length > 0) ? resolve(finder) : reject('No hand')
     })
 }
