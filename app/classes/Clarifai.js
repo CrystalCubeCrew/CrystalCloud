@@ -30,7 +30,7 @@ function predict (url) {
     return new Promise(function(resolve,reject){
         app.models.predict(clarifai.GENERAL_MODEL, url)
         .then(function(response){
-            resolve(response.outputs[0].model)
+            resolve(response.outputs[0])
         })
         .catch(function(err){
             reject(err)
