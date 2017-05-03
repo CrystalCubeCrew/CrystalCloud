@@ -10,7 +10,7 @@ class Predicter {
 
     async performAction () {
         try{
-            let image = new imageUploader(this)
+            let image = new ImgUploader(this)
             let url = await image.uploadFile()
             let findImage = await predict(url)
             console.log(findImage)
