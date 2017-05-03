@@ -14,7 +14,7 @@ class Predicter {
             let url = await image.uploadFile()
 
             let findImage = await predict(url.url)
-            //console.log(findImage)
+            console.log(findImage)
             return findImage
         }
         catch(err){
