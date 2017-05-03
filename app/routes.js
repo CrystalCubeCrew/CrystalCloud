@@ -45,6 +45,7 @@ module.exports = function (app) {
 
 
   app.post('/crystalRequest', function(req,res){
+    console.log('request made')
     let api = new Apiai(req.body)
     let sendData = {}
 
