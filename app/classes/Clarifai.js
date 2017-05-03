@@ -8,7 +8,7 @@ class Predicter {
         this._filePath = filePath
     }
 
-    async preformAction () {
+    async performAction () {
         try{
             let image = new imageUploader(this)
             let url = await image.uploadFile()
