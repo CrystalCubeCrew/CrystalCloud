@@ -74,7 +74,12 @@ module.exports = function (app) {
 
 
   app.post('/checkImage',function(req,res){
-    let action = new ActionFactory({intent: 'check image', data: req.body})
+    let holder = {
+      filePath: `img/faces/${req.body.fileName}`,
+      file : req.body.file
+    }
+
+    let action = new ActionFactory({intent: 'check image', data: holder})
     action.performAction()
     .then(function(out){
       console.log(out)
