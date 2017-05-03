@@ -82,7 +82,7 @@ module.exports = function (app) {
     let action = new ActionFactory({intent: 'check image', data: holder})
     action.performAction()
     .then(function(out){
-      res.json({response: 'hand'})
+      res.json({response: out})
     })
     .catch(function(err){
       res.json({response: 'no hand'})

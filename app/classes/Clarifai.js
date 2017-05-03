@@ -16,7 +16,8 @@ class Predicter {
             let findImage = await predict(url)
             let handFinder = await filterHand(findImage)
             console.log(handFinder)
-            return handFinder
+            let response = (handFinder.length > 0) ? 'hand' : 'no hand'
+            return response
         }
         catch(err){
             console.log(err)
@@ -44,6 +45,6 @@ function filterHand (list){
         let finder = list.filter(function(elements){
             return elements.name === 'hand'
         })
-        (finder.length > 0) ? resolve(finder) : reject('No hand')
+         resolve(finder)
     })
 }
