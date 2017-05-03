@@ -12,12 +12,13 @@ class Predicter {
         try{
             let image = new ImgUploader(this)
             let url = await image.uploadFile()
+            console.log(url)
             let findImage = await predict(url)
-            console.log(findImage)
+            //console.log(findImage)
             return findImage
         }
         catch(err){
-            console.log(err)
+            //console.log(err)
             return {error: `Error`}
         }
     }
