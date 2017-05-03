@@ -12,7 +12,7 @@ class ImgUploader {
         return new Promise(function(resolve, reject){
             Promise.all([writeFile(obj), uploadFile(obj)])
             .then(function(response){
-                resolve(response[1])
+                resolve(response[1].url)
             })
             .catch(function(err){
                 reject(err)
