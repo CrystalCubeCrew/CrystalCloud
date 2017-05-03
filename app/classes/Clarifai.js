@@ -12,8 +12,8 @@ class Predicter {
         try{
             let image = new ImgUploader(this)
             let url = await image.uploadFile()
-            console.log(url)
-            let findImage = await predict(url)
+
+            let findImage = await predict(url.url)
             //console.log(findImage)
             return findImage
         }
