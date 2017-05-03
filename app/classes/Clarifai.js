@@ -19,7 +19,7 @@ class Predicter {
             return handFinder
         }
         catch(err){
-            //console.log(err)
+            console.log(err)
             return {error: `Error`}
         }
     }
@@ -40,7 +40,7 @@ function predict (url) {
 }
 
 function filterHand (list){
-    return new Promise(function(){
+    return new Promise(function(resolve,reject){
         let finder = list.filter(function(elements){
             return elements.name === 'hand'
         })
