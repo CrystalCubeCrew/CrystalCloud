@@ -13,9 +13,10 @@ class Predicter {
             let image = new ImgUploader(this)
             let url = await image.uploadFile()
 
-            let findImage = await predict(url.url)
-            console.log(findImage)
-            return findImage
+            let findImage = await predict(url)
+            let handFinder = await filterHand(findImage)
+            console.log(handFinder)
+            return handFinder
         }
         catch(err){
             //console.log(err)
@@ -35,5 +36,15 @@ function predict (url) {
         .catch(function(err){
             reject(err)
         })
+    })
+}
+
+function filterHand (list){
+    return new Promise(function(){
+        let finder = list.filter(function(elements){
+            return elements.name === 'hand'
+        })
+
+        resolve(finder)
     })
 }
