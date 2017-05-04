@@ -57,14 +57,19 @@ let findUser = function (obj) {
   })
 }
 
-let getUserFromDatabase = function (obj,userId) {
-  let userRef = fb.database().ref('/crystalCubes/'+obj._machineId+'/user/'+userId) 
+let getUserFromDatabase = function (obj,faceId) {
+  let userRef = fb.database().ref('/crystalCubes/'+obj._machineId+'/user/') 
   return new Promise(function (resolve,reject) {
     userRef.on('value',function (snapshot) {
+      let users = snapshot.val()
 
+      let foundUser = Object.values(users).filter(function(user){
+        return user.faceId === faceId
+      })
+      console.log(foundUser)
       resolve({
-        userName: snapshot.val(),
-        userId: userId
+        userName: foundUser[0],
+        userId: foundUser[0]
       })
 
     })
