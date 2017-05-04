@@ -23,7 +23,7 @@ module.exports = Save
 let saveActivity = function(obj){
   return new Promise (function(resolve, reject){
     let key = db.ref().child(`/crystalCubes/${obj._machineId}/user/${obj._userId}/logs`).push().key
-
+    console.log(obj._userId)
     db.ref(`/crystalCubes/${obj._machineId}/user/${obj._userId}/logs/${key}`).set({
       intent: obj._intent,
       message : obj._message,
