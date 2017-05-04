@@ -4,13 +4,14 @@ let writeFile = require('../singleFunction/writeFile')
 
 class CreateUser {
 
-  constructor({machineId, firstName, lastName, filePath, file} = {}){
+  constructor({machineId, firstName, lastName, filePath, file, email}){
     this._machineId = machineId
-    this._userId = null
+    this._email = email
     this._filePath = filePath
     this._file = file
 
     this._userData = {
+      faceId : null,
       profile : {
         firstName : firstName,
         lastName : lastName
@@ -52,7 +53,7 @@ let createPerson = function (obj) {
   return new Promise (function (resolve, reject) {
     client.face.person.create(obj._machineId, name)
     .then(function(personInfo){
-      obj._userId =  personInfo.personId
+      obj._userData.faceId =  personInfo.personId
       return client.face.person.addFace(obj._machineId, personInfo.personId,{ path: obj._filePath})
     })
     .then(function () {
@@ -69,7 +70,7 @@ let createPerson = function (obj) {
 
 let addToDatabase = function (obj) {
   let updates = {}
-  updates['/crystalCubes/'+obj._machineId+'/user/'+obj._userId] = obj._userData
+  updates['/crystalCubes/'+obj._machineId+'/user/'+obj._email] = obj._userData
   fb.database().ref().update(updates)
 }
 
