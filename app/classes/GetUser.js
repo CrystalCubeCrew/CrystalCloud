@@ -62,7 +62,7 @@ let getUserFromDatabase = function (obj,faceId) {
   return new Promise(function (resolve,reject) {
     userRef.on('value',function (snapshot) {
       let users = snapshot.val()
-
+      console.log(faceId)
       let foundUser = Object.values(users).filter(function(user){
         return user.faceId === faceId
       })
