@@ -11,7 +11,7 @@ module.exports = function (app) {
       lastName: req.body.lastName,
       filePath: `img/faces/${req.body.fileName}`,
       file : req.body.file,
-      email : req.body.email
+      email : req.body.gmail
     }
 
     let action = new ActionFactory({intent: 'Create User', data: holder})
