@@ -62,15 +62,21 @@ let getUserFromDatabase = function (obj,faceId) {
   return new Promise(function (resolve,reject) {
     userRef.on('value',function (snapshot) {
       let users = snapshot.val()
-      console.log(faceId)
-      let foundUser = Object.values(users).filter(function(user,i){
-        console.log(i)
-        return user.faceId === faceId
+      let foundUser = null
+
+      Object.keys(users).forEach(function(id){
+        if(users[id].faceId === faceId){
+          foundUser = {
+            userId: id,
+            data: users[id]
+          }
+        }
       })
+
       console.log(foundUser)
       resolve({
-        userName: foundUser[0],
-        userId: foundUser[0]
+        userName: foundUser.data,
+        userId: foundUser.userId
       })
 
     })
