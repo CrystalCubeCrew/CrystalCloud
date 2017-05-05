@@ -69,6 +69,7 @@ let createPerson = function (obj) {
 }
 
 let addToDatabase = function (obj) {
+  console.log(obj._email)
   let updates = {}
   updates['/crystalCubes/'+obj._machineId+'/user/'+obj._email] = obj._userData
   fb.database().ref().update(updates)
