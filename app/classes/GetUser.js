@@ -72,8 +72,7 @@ let getUserFromDatabase = function (obj,faceId) {
           }
         }
       })
-
-      console.log(foundUser)
+      
       resolve({
         userName: foundUser.data,
         userId: foundUser.userId
