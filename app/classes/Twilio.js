@@ -37,10 +37,10 @@ let getContact = function(obj){
   return new Promise(function(resolve, reject){
     query.on('value',function(snapshot){
       let contacts = snapshot.val()
-
+      if(contacts === null)
+        reject(null)
+        
       let foundContact = Object.values(contacts).filter(function(contact){
-        console.log(obj.person)
-        console.log(contact)
         return obj.person == contact.name
       })
 
