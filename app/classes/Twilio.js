@@ -33,12 +33,18 @@ class Messager {
 module.exports = Messager
 
 let getContact = function(obj){
-  let query = fb.ref(`/crystalCubes/${obj.machineId}/user/${obj.userId}/contacts/${obj.person}`)
+  let query = fb.ref(`/crystalCubes/${obj.machineId}/user/${obj.userId}/contacts/`)
   return new Promise(function(resolve, reject){
     query.on('value',function(snapshot){
-      if(snapshot.val() == null)
+      let contacts = snapshot.val()
+
+      let foundContact = Object.values(contacts).filter(function(contact){
+        return obj.person === contact.name
+      })
+
+      if(foundContact.length === 0)
         reject(null)
-      resolve(snapshot.val())
+      resolve(foundContact[0].number)
     })
   })
 }

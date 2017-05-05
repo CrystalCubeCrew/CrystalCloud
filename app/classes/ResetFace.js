@@ -3,7 +3,6 @@ let machineName = 'crystal_chan_6'
 // client.face.personGroup.delete(machineName)
 // .then(function(data){
 //     console.log(data)
-//     client.face.create(machineName, machineName, null)
 // })
 
 // .catch(function(err){
