@@ -39,6 +39,7 @@ let getContact = function(obj){
       let contacts = snapshot.val()
 
       let foundContact = Object.values(contacts).filter(function(contact){
+        console.log(obj.person)
         console.log(contact)
         return obj.person === contact.name
       })
